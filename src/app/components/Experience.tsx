@@ -1,8 +1,7 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 
 const Experience: React.FC = () => {
-  // Initialize an array with your provided job experiences
   const [experiences, setExperiences] = useState([
     {
       jobTitle: "Junior Elementary School Teacher (BPS-14)",
@@ -25,22 +24,26 @@ const Experience: React.FC = () => {
       responsibilities: "Work as Telephone Operator and Front Office Executive at Star Trading Co."
     }
   ]);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // Function to handle adding a new job experience
   const handleAddExperience = () => {
     const newExperience = {
       jobTitle: "New Job Title",
       date: "New Job Date",
       responsibilities: "New Responsibilities"
     };
-    setExperiences([...experiences, newExperience]); // Add the new experience to the list
+    setExperiences([...experiences, newExperience]);
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
   };
 
   return (
     <section className="bg-white p-6 rounded shadow-md mb-4">
       <h2 className="text-xl font-bold mb-4">Experience</h2>
 
-      {/* Form for adding or editing experience */}
+      {/* Experience list */}
       <form className="space-y-4">
         {experiences.map((experience, index) => (
           <div key={index}>
@@ -54,6 +57,7 @@ const Experience: React.FC = () => {
                   updatedExperiences[index].jobTitle = e.target.value;
                   setExperiences(updatedExperiences);
                 }}
+                disabled={!isEditing}
                 className="w-full p-2 border rounded"
               />
             </div>
@@ -67,6 +71,7 @@ const Experience: React.FC = () => {
                   updatedExperiences[index].date = e.target.value;
                   setExperiences(updatedExperiences);
                 }}
+                disabled={!isEditing}
                 className="w-full p-2 border rounded"
               />
             </div>
@@ -79,6 +84,7 @@ const Experience: React.FC = () => {
                   updatedExperiences[index].responsibilities = e.target.value;
                   setExperiences(updatedExperiences);
                 }}
+                disabled={!isEditing}
                 className="w-full p-2 border rounded"
               />
             </div>
@@ -86,15 +92,31 @@ const Experience: React.FC = () => {
         ))}
       </form>
 
-      {/* Button to add new job experience */}
-      <button
-        onClick={handleAddExperience}
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
-      >
-        Add New Experience
-      </button>
+      {/* Action buttons aligned in a row */}
+      <div className="flex space-x-4 mt-4">
+        <button
+          onClick={handleAddExperience}
+          className="p-2 bg-blue-500 text-white rounded"
+        >
+          Add New Experience
+        </button>
+        <button
+          onClick={() => setIsEditing(!isEditing)}
+          className="p-2 bg-yellow-500 text-white rounded"
+        >
+          {isEditing ? "Cancel" : "Edit"}
+        </button>
+        {isEditing && (
+          <button
+            onClick={handleSave}
+            className="p-2 bg-green-500 text-white rounded"
+          >
+            Save
+          </button>
+        )}
+      </div>
 
-      {/* Display all job experiences */}
+      {/* Display list of experiences */}
       <div className="mt-6 text-gray-700">
         {experiences.map((experience, index) => (
           <div key={index}>
@@ -110,6 +132,3 @@ const Experience: React.FC = () => {
 };
 
 export default Experience;
-
-
-

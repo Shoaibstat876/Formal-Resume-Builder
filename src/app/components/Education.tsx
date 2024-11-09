@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 
 const Education: React.FC = () => {
-  // Initialize an array to hold multiple education entries
   const [educations, setEducations] = useState([
     {
       degree: "Bachelor of Science in Electronic Engineering",
@@ -10,22 +9,24 @@ const Education: React.FC = () => {
       gpa: "3.0"
     }
   ]);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // Function to handle adding a new education entry
   const handleAddEducation = () => {
     const newEducation = {
       degree: "New Degree",
       institution: "New Institution",
       gpa: "4.0"
     };
-    setEducations([...educations, newEducation]); // Add the new education entry to the list
+    setEducations([...educations, newEducation]);
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
   };
 
   return (
     <section className="bg-white p-6 rounded shadow-md mb-4">
       <h2 className="text-xl font-bold mb-4">Education</h2>
-      
-      {/* Form for adding or editing education information */}
       <form className="space-y-4">
         {educations.map((education, index) => (
           <div key={index}>
@@ -39,6 +40,7 @@ const Education: React.FC = () => {
                   updatedEducations[index].degree = e.target.value;
                   setEducations(updatedEducations);
                 }}
+                disabled={!isEditing}
                 className="w-full p-2 border rounded"
               />
             </div>
@@ -52,6 +54,7 @@ const Education: React.FC = () => {
                   updatedEducations[index].institution = e.target.value;
                   setEducations(updatedEducations);
                 }}
+                disabled={!isEditing}
                 className="w-full p-2 border rounded"
               />
             </div>
@@ -65,6 +68,7 @@ const Education: React.FC = () => {
                   updatedEducations[index].gpa = e.target.value;
                   setEducations(updatedEducations);
                 }}
+                disabled={!isEditing}
                 className="w-full p-2 border rounded"
               />
             </div>
@@ -72,15 +76,30 @@ const Education: React.FC = () => {
         ))}
       </form>
 
-      {/* Button to add new education entry */}
-      <button
-        onClick={handleAddEducation}
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
-      >
-        Add New Education
-      </button>
+      {/* Align the buttons in one row */}
+      <div className="flex space-x-4 mt-4">
+        <button
+          onClick={handleAddEducation}
+          className="p-2 bg-blue-500 text-white rounded"
+        >
+          Add New Education
+        </button>
+        <button
+          onClick={() => setIsEditing(!isEditing)}
+          className="p-2 bg-yellow-500 text-white rounded"
+        >
+          {isEditing ? "Cancel" : "Edit"}
+        </button>
+        {isEditing && (
+          <button
+            onClick={handleSave}
+            className="p-2 bg-green-500 text-white rounded"
+          >
+            Save
+          </button>
+        )}
+      </div>
 
-      {/* Display all education entries */}
       <div className="mt-6 text-gray-700">
         {educations.map((education, index) => (
           <div key={index}>

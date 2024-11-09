@@ -3,11 +3,15 @@
 import React, { useState } from 'react';
 
 const PersonalInfo: React.FC = () => {
-  // State variables for user input
   const [name, setName] = useState("Shoaib");
   const [title, setTitle] = useState("Software Developer");
   const [email, setEmail] = useState("shoaib@example.com");
   const [phone, setPhone] = useState("(123) 456-7890");
+  const [isEditing, setIsEditing] = useState(false); // State to manage edit mode
+
+  const handleSave = () => {
+    setIsEditing(false); // Save and exit edit mode
+  };
 
   return (
     <section className="bg-white p-6 rounded shadow-md mb-4">
@@ -19,6 +23,7 @@ const PersonalInfo: React.FC = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            disabled={!isEditing} // Disable inputs when not in edit mode
             className="w-full p-2 border rounded"
           />
         </div>
@@ -28,6 +33,7 @@ const PersonalInfo: React.FC = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            disabled={!isEditing}
             className="w-full p-2 border rounded"
           />
         </div>
@@ -37,6 +43,7 @@ const PersonalInfo: React.FC = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={!isEditing}
             className="w-full p-2 border rounded"
           />
         </div>
@@ -46,6 +53,7 @@ const PersonalInfo: React.FC = () => {
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            disabled={!isEditing}
             className="w-full p-2 border rounded"
           />
         </div>
@@ -56,10 +64,22 @@ const PersonalInfo: React.FC = () => {
         <p><strong>Email:</strong> {email}</p>
         <p><strong>Phone:</strong> {phone}</p>
       </div>
+      <button
+        onClick={() => setIsEditing(!isEditing)} // Toggle between edit and view mode
+        className="mt-4 p-2 bg-blue-500 text-white rounded"
+      >
+        {isEditing ? "Cancel" : "Edit"}
+      </button>
+      {isEditing && (
+        <button
+          onClick={handleSave}
+          className="mt-4 p-2 bg-green-500 text-white rounded"
+        >
+          Save
+        </button>
+      )}
     </section>
   );
 };
 
 export default PersonalInfo;
-
-
