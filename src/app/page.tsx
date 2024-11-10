@@ -1,5 +1,4 @@
-"use client"; // This marks the component as a Client Component
-
+"use client";
 import { useRouter } from "next/navigation"; // Import from next/navigation
 import Header from './components/Header';
 import PersonalInfo from './components/PersonalInfo';

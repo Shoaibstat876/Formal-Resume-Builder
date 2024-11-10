@@ -1,12 +1,26 @@
-// src/pages/[username]/resume.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
+// Define a type for the resume data
+interface ResumeData {
+  education: {
+    degree: string;
+    institution: string;
+    gpa: string;
+  };
+  skills: string[];
+  experience: {
+    title: string;
+    company: string;
+    description: string;
+  }[];
+}
+
 const ResumePage = () => {
   const router = useRouter();
   const { username } = router.query;
-  const [resumeData, setResumeData] = useState<any>(null);
+  const [resumeData, setResumeData] = useState<ResumeData | null>(null);
 
   useEffect(() => {
     if (username) {
@@ -20,7 +34,7 @@ const ResumePage = () => {
 
   const handleDownload = async () => {
     const response = await fetch(`/api/generate-pdf?username=${username}`);
-    
+
     if (!response.ok) {
       console.error("Failed to generate PDF");
       alert("Failed to generate PDF");
@@ -101,6 +115,8 @@ const ResumePage = () => {
 };
 
 export default ResumePage;
+
+
 
 
 

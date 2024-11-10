@@ -1,9 +1,13 @@
-"use client"
-import puppeteer from 'puppeteer';
 import { NextApiRequest, NextApiResponse } from 'next';
+import puppeteer from 'puppeteer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username } = req.query;
+  const { username } = req.query; // This is now used correctly
+
+  if (!username) {
+    res.status(400).send('Username is required');
+    return;
+  }
 
   try {
     // Launch Puppeteer and generate PDF
@@ -33,6 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).send('Failed to generate PDF');
   }
 }
+
 
 
 
