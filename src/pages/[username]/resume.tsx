@@ -2,6 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
+// Define a type for the experience data
+interface Experience {
+  title: string;
+  company: string;
+  description: string;
+}
+
 // Define a type for the resume data
 interface ResumeData {
   education: {
@@ -10,11 +17,7 @@ interface ResumeData {
     gpa: string;
   };
   skills: string[];
-  experience: {
-    title: string;
-    company: string;
-    description: string;
-  }[];
+  experience: Experience[];
 }
 
 const ResumePage = () => {
@@ -99,7 +102,7 @@ const ResumePage = () => {
           {/* Experience Section */}
           <section className="bg-gradient-to-r from-teal-400 to-blue-600 p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-white">Experience</h2>
-            {resumeData.experience.map((job: any, index: number) => (
+            {resumeData.experience.map((job: Experience, index: number) => (
               <div key={index} className="space-y-2 mb-6">
                 <p className="text-lg font-semibold text-white">
                   {job.title} <span className="text-gray-200">@ {job.company}</span>
@@ -115,6 +118,7 @@ const ResumePage = () => {
 };
 
 export default ResumePage;
+
 
 
 

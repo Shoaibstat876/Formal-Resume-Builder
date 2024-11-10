@@ -26,8 +26,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     ],
   };
 
+  // Instead of just logging, we return the resume data
   res.status(200).json(resumeData);
 }
+
 
 
   
