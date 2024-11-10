@@ -2,7 +2,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username } = req.query;
+  // We no longer destructure `username` from `req.query` if it's not needed
+  // const { username } = req.query; 
 
   // Mock data for the user (replace this with actual fetching logic as needed)
   const resumeData = {
@@ -26,9 +27,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     ],
   };
 
-  // Instead of just logging, we return the resume data
+  // Return resume data (no longer depend on `username`)
   res.status(200).json(resumeData);
 }
+
 
 
 
