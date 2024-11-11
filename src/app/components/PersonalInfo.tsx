@@ -1,15 +1,23 @@
-//src\app\components\PersonalInfo.tsx
 "use client";
 import React, { useReducer, useEffect } from 'react';
+
+// Define state shape type
+type State = {
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  isEditing: boolean;
+};
 
 // Action types
 type Action = 
   | { type: 'SET_FIELD'; field: string; value: string }
   | { type: 'TOGGLE_EDIT' }
-  | { type: 'SET_INITIAL_DATA'; payload: { name: string; title: string; email: string; phone: string; isEditing: boolean } };
+  | { type: 'SET_INITIAL_DATA'; payload: State };
 
 // Reducer function for managing form state
-const reducer = (state: any, action: Action) => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_FIELD':
       return { ...state, [action.field]: action.value };
@@ -24,7 +32,7 @@ const reducer = (state: any, action: Action) => {
 
 const PersonalInfo: React.FC = () => {
   // Initial state setup
-  const initialState = {
+  const initialState: State = {
     name: 'Shoaib',
     title: 'Software Developer',
     email: 'shoaib@example.com',
