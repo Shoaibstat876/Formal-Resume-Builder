@@ -12,7 +12,7 @@ type State = {
 
 // Action types
 type Action = 
-  | { type: 'SET_FIELD'; field: string; value: string }
+  | { type: 'SET_FIELD'; field: keyof State; value: string }
   | { type: 'TOGGLE_EDIT' }
   | { type: 'SET_INITIAL_DATA'; payload: State };
 
@@ -40,13 +40,13 @@ const PersonalInfo: React.FC = () => {
     isEditing: false
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, initialState);
 
   // Set data from localStorage if available
   useEffect(() => {
     const savedData = localStorage.getItem('personalInfo');
     if (savedData) {
-      dispatch({ type: 'SET_INITIAL_DATA', payload: JSON.parse(savedData) });
+      dispatch({ type: 'SET_INITIAL_DATA', payload: JSON.parse(savedData) as State });
     }
   }, []);
 
@@ -147,3 +147,4 @@ const PersonalInfo: React.FC = () => {
 };
 
 export default PersonalInfo;
+
