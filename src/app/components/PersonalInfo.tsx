@@ -46,27 +46,32 @@ const PersonalInfo: React.FC = () => {
   useEffect(() => {
     const savedData = localStorage.getItem('personalInfo');
     if (savedData) {
-      dispatch({ type: 'SET_INITIAL_DATA', payload: JSON.parse(savedData) as State });
+      const { name, title, email, phone } = JSON.parse(savedData) as State;
+      dispatch({
+        type: 'SET_INITIAL_DATA',
+        payload: { name, title, email, phone, isEditing: false }
+      });
     }
   }, []);
 
-  // Form validation
+  // Field validation functions
   const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
   const validatePhone = (phone: string) => /^\(\d{3}\) \d{3}-\d{4}$/.test(phone);
 
   const handleSave = () => {
-    // Validate fields
+    // Validate email and phone fields
     if (!validateEmail(state.email)) {
-      alert('Please enter a valid email.');
+      alert("Please enter a valid email.");
       return;
     }
     if (!validatePhone(state.phone)) {
-      alert('Please enter a valid phone number in the format (xxx) xxx-xxxx.');
+      alert("Please enter a valid phone number in the format (xxx) xxx-xxxx.");
       return;
     }
 
-    // Save to localStorage
-    localStorage.setItem('personalInfo', JSON.stringify(state));
+    // Save data to localStorage
+    const dataToSave: State = { ...state };
+    localStorage.setItem("personalInfo", JSON.stringify(dataToSave));
 
     // Exit edit mode
     dispatch({ type: 'TOGGLE_EDIT' });
@@ -75,7 +80,7 @@ const PersonalInfo: React.FC = () => {
   return (
     <section className="bg-white p-6 rounded-lg shadow-md mb-6">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Personal Information</h2>
-      
+
       <form className="space-y-4">
         <div>
           <label className="block text-gray-700">Name:</label>
@@ -147,4 +152,5 @@ const PersonalInfo: React.FC = () => {
 };
 
 export default PersonalInfo;
+
 
