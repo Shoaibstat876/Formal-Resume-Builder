@@ -1,6 +1,8 @@
+//src\pages\[username]\resume.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Header from "@/app/components/Header"
 
 // Define a type for the experience data
 interface Experience {
@@ -60,8 +62,10 @@ const ResumePage = () => {
   if (!resumeData) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-400 via-green-400 to-yellow-500 flex justify-center items-center py-8">
-      <div className="bg-white shadow-2xl rounded-lg max-w-4xl w-full overflow-hidden flex flex-col sm:flex-row p-6 space-y-6 sm:space-y-0 sm:space-x-8">
+    <div className="min-h-screen bg-gray-100 p-8">
+      <Header /> {/* Reusing the Header component for consistency */}
+      
+      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden flex flex-col sm:flex-row p-6 space-y-6 sm:space-y-0 sm:space-x-8">
         {/* Sidebar */}
         <aside className="w-full sm:w-1/3 bg-gradient-to-r from-purple-500 to-pink-500 text-white flex flex-col items-center py-12 px-8 space-y-6 rounded-lg">
           <h1 className="text-3xl font-bold text-center text-yellow-200">Resume of {username}</h1>
@@ -79,7 +83,7 @@ const ResumePage = () => {
           </button>
         </aside>
 
-        {/* Content */}
+        {/* Main Content */}
         <main className="w-full sm:w-2/3 p-8 space-y-8 bg-white rounded-lg shadow-md">
           {/* Education Section */}
           <section className="bg-gradient-to-r from-pink-300 to-indigo-500 p-6 rounded-lg shadow-md">
@@ -117,16 +121,4 @@ const ResumePage = () => {
   );
 };
 
-export default ResumePage;
-
-
-
-
-
-
-
-
-
-
-
-
+export default ResumePage;  // Ensure this is the default export

@@ -1,3 +1,4 @@
+//src\app\page.tsx
 "use client";
 import { useRouter } from "next/navigation"; // Import from next/navigation
 import Header from './components/Header';
@@ -12,7 +13,11 @@ const Home = () => {
 
   // Handle navigation to the resume page
   const handleNavigation = () => {
-    router.push(`/${username}/resume`);
+    if (username) {
+      router.push(`/${username}/resume`);
+    } else {
+      alert("Username not found, please log in or create a profile.");
+    }
   };
 
   return (
@@ -29,6 +34,7 @@ const Home = () => {
           <button
             onClick={handleNavigation}
             className="py-3 px-6 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-400 transition-transform"
+            aria-label="Navigate to resume page"
           >
             Go to Resume
           </button>
@@ -39,5 +45,6 @@ const Home = () => {
 };
 
 export default Home;
+
 
 

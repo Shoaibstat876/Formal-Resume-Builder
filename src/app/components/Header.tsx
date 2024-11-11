@@ -3,11 +3,17 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-blue-600 text-white p-4">
-      <h1 className="text-2xl font-bold">Resume and Portfolio Builder</h1>
+    <header className="bg-gray-800 text-white p-6 shadow-lg flex items-center justify-between">
+      <h1 className="text-3xl font-extrabold tracking-tight">Resume Builder</h1>
+      <div className="flex items-center space-x-4">
+        {/* Add optional elements like a logo or profile icon here */}
+      </div>
     </header>
   );
 };
 
 export default Header;
+
+
+
 
